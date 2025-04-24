@@ -1,5 +1,6 @@
 import time
 from collections.abc import Iterable
+from pathlib import Path
 
 import torch
 import torch.utils.data
@@ -11,12 +12,13 @@ from my_nn import MLP, Module, cross_entropy
 from my_tensor import NoGrad, Parameter, Tensor
 
 my_tensor.grad_tracking_enabled = True
+DATASET_CACHE = Path("../dataset_cache")
 
 
 def get_mnist(subsample=10):
     """Return MNIST data using the provided Tensor class."""
-    mnist_train = datasets.MNIST("../data", train=True, download=True)
-    mnist_test = datasets.MNIST("../data", train=False)
+    mnist_train = datasets.MNIST(DATASET_CACHE, train=True, download=True)
+    mnist_test = datasets.MNIST(DATASET_CACHE, train=False)
     print("Preprocessing data...")
     transform = transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.28,), (0.35,))]

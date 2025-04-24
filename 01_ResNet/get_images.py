@@ -23,6 +23,7 @@ IMAGE_URLS = [
     "https://static.wikia.nocookie.net/disneyfanon/images/a/af/Goofy_pulling_his_ears.jpg",
 ]
 IMAGE_CACHE = Path("image_cache")
+DATASET_CACHE = Path("../dataset_cache")
 IMAGENET_LABELS = {
     int(k): label
     for k, label in json.loads(Path("imagenet_labels.json").read_text()).items()
@@ -76,9 +77,7 @@ def prepare_data(images: list[Image.Image]) -> torch.Tensor:
     return torch.stack([preprocess(img) for img in tqdm(images)])
 
 
-def get_cifar10(
-    cache_dir: Path = Path("CIFAR10"),
-) -> tuple[torchvision.datasets.CIFAR10, torchvision.datasets.CIFAR10]:
+def get_cifar10() -> tuple[torchvision.datasets.CIFAR10, torchvision.datasets.CIFAR10]:
     """Download (if necessary) and return the CIFAR10 dataset."""
     # Magic constants taken from: https://docs.ffcv.io/ffcv_examples/cifar10.html
     mean = torch.tensor([125.307, 122.961, 113.8575]) / 255
@@ -87,9 +86,9 @@ def get_cifar10(
         [torchvision.transforms.ToTensor(), torchvision.transforms.Normalize(mean, std)]
     )
     cifar_train = torchvision.datasets.CIFAR10(
-        cache_dir, transform=transform, download=True, train=True
+        DATASET_CACHE, transform=transform, download=True, train=True
     )
     cifar_test = torchvision.datasets.CIFAR10(
-        cache_dir, transform=transform, download=True, train=False
+        DATASET_CACHE, transform=transform, download=True, train=False
     )
     return cifar_train, cifar_test
