@@ -4,11 +4,11 @@ from typing import Any
 
 import torch
 import wandb
-from pytorch_from_scratch.p03_optimizers.my_optimizers import Adam
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 
 from pytorch_from_scratch.p01_ResNet import ResNet34, get_cifar10
+from pytorch_from_scratch.p03_optimizers.my_optimizers import Adam
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
