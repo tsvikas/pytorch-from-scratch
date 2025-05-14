@@ -58,3 +58,5 @@ venv/
 TODO*
 
 # specific to this project:
+image_cache/
+dataset_cache/
