@@ -35,8 +35,10 @@ def load_image(url: str, known_hash: str | None = None) -> Image.Image:
     filename = pooch.retrieve(url, known_hash=known_hash)
     return Image.open(filename)
 
+
 def load_all_images() -> list[Image.Image]:
     return [load_image(url, known_hash) for url, known_hash in tqdm(IMAGE_URLS.items())]
+
 
 def prepare_data(images: list[Image.Image]) -> torch.Tensor:
     """Preprocess each image and stack them into a single tensor.

@@ -41,7 +41,6 @@ class Tensor:
     "Extra information necessary to run backpropagation."
 
     def __init__(self, array: Array | list, requires_grad=False) -> None:
-
         self.array = array if isinstance(array, Array) else np.array(array)
         self.requires_grad = requires_grad
         self.grad = None

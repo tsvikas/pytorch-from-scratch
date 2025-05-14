@@ -8,7 +8,6 @@ from pytorch_from_scratch.p01_ResNet import my_nn
 
 @mark.parametrize("conv2d", [my_nn.conv2d])
 def test_conv2d_minimal(conv2d, n_tests=10) -> None:
-
     for _i in range(n_tests):
         b = np.random.randint(1, 10)
         h = np.random.randint(10, 300)
@@ -63,7 +62,6 @@ def test_pad2d_multi_channel(pad) -> None:
 
 @mark.parametrize("my_conv", [my_nn.conv2d])
 def test_conv2d(my_conv, n_tests=10) -> None:
-
     for _i in range(n_tests):
         b = np.random.randint(1, 10)
         h = np.random.randint(10, 300)
@@ -85,7 +83,6 @@ def test_conv2d(my_conv, n_tests=10) -> None:
 
 @mark.parametrize("my_maxpool2d", [my_nn.maxpool2d])
 def test_maxpool2d(my_maxpool2d, n_tests=20) -> None:
-
     for _i in range(n_tests):
         b = np.random.randint(1, 10)
         h = np.random.randint(10, 50)
@@ -122,9 +119,9 @@ def test_maxpool2d_module(MaxPool2d) -> None:
 @mark.parametrize("Conv2d", [my_nn.Conv2d])
 def test_conv2d_module(Conv2d) -> None:
     m = Conv2d(4, 5, (3, 3))
-    assert isinstance(
-        m.weight, torch.nn.parameter.Parameter
-    ), "Weight should be registered a parameter!"
+    assert isinstance(m.weight, torch.nn.parameter.Parameter), (
+        "Weight should be registered a parameter!"
+    )
     assert m.weight.nelement() == 4 * 5 * 3 * 3
 
 
@@ -225,7 +222,6 @@ def test_linear_no_bias(Linear) -> None:
 
 @mark.parametrize("Sequential", [my_nn.Sequential])
 def test_sequential(Sequential) -> None:
-
     modules = [torch.nn.Linear(1, 2), torch.nn.ReLU(), torch.nn.Linear(2, 1)]
     s = Sequential(*modules)
 
@@ -233,14 +229,13 @@ def test_sequential(Sequential) -> None:
         s,
         *modules,
     ], "The sequential and its submodules should be registered Modules."
-    assert (
-        len(list(s.parameters())) == 4
-    ), "Submodules's parameters should be registered."
+    assert len(list(s.parameters())) == 4, (
+        "Submodules's parameters should be registered."
+    )
 
 
 @mark.parametrize("Sequential", [my_nn.Sequential])
 def test_sequential_forward(Sequential) -> None:
-
     modules = [torch.nn.Linear(1, 2), torch.nn.ReLU(), torch.nn.Linear(2, 1)]
     x = torch.tensor([5.0])
     s = Sequential(*modules)
