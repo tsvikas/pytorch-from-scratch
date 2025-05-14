@@ -201,7 +201,7 @@ def main():
 
     train_loader = DataLoader(train_data, batch_size=256, shuffle=True)
     val_loader = DataLoader(val_data, batch_size=256)
-    test_loader = DataLoader(test_data, batch_size=256)
+    _test_loader = DataLoader(test_data, batch_size=256)
 
     # setup model
     model = ImageMemorizer(in_dim=2, out_dim=3, hidden_dim=400)
