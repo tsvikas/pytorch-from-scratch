@@ -4,7 +4,9 @@ from importlib import resources
 files = resources.files(__name__)
 imagenet = {
     int(k): label
-    for k, label in json.loads(files.joinpath("imagenet_labels.json").read_text()).items()
+    for k, label in json.loads(
+        files.joinpath("imagenet_labels.json").read_text()
+    ).items()
 }
 cifar = {
     0: "airplane",
