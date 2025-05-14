@@ -7,8 +7,9 @@ from torchvision import datasets, transforms
 from tqdm.auto import tqdm
 
 CACHE_DIR = Path(__file__).parents[3]
-assert CACHE_DIR.joinpath('src').exists()
+assert CACHE_DIR.joinpath("src").exists()
 DATASET_CACHE = CACHE_DIR / "dataset_cache"
+
 
 def get_mnist(subsample=10):
     """Return MNIST data using the provided Tensor class."""
@@ -42,4 +43,3 @@ def get_mnist(subsample=10):
     )
     test_loader = torch.utils.data.DataLoader(test_tensors, batch_size=512)
     return train_loader, test_loader
-
