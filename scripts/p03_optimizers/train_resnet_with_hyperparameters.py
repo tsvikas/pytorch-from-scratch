@@ -33,8 +33,8 @@ def train(config_dict: dict[str, Any]):
     wandb.watch(model, criterion=train_loss_fn, log="all", log_freq=10, log_graph=True)
     start_time = time.time()
     examples_seen = 0
-    for epoch in range(config.epochs):
-        for i, (x, y) in enumerate(tqdm(trainloader)):
+    for _epoch in range(config.epochs):
+        for x, y in tqdm(trainloader):
             x = x.to(device)
             y = y.to(device)
             optimizer.zero_grad()
@@ -57,7 +57,7 @@ def train(config_dict: dict[str, Any]):
         n_correct = 0
         n_total = 0
         loss_total = 0.0
-        for i, (x, y) in enumerate(tqdm(testloader)):
+        for x, y in tqdm(testloader):
             x = x.to(device)
             y = y.to(device)
             y_hat = model(x)
