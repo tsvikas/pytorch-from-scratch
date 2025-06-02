@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 import torch
+import transformers
 from einops import rearrange, repeat
 from fancy_einsum import einsum
 from torch import nn
@@ -196,3 +197,23 @@ class Bert(nn.Module):
         )
         out = self.unembed(out)
         return BertOutput(logits=out)
+
+
+def load_pretrained_weights() -> Bert:
+    config = BertConfig()
+    bert = Bert(config)
+    hf_bert = transformers.BertForMaskedLM.from_pretrained("bert-base-cased")
+    their_params = hf_bert.state_dict().copy()
+    their_params.pop("cls.predictions.decoder.weight")
+    their_params.pop("cls.predictions.bias")
+    weights_to_load = {}
+    assert len(their_params) == len(bert.state_dict())
+    for loaded_key, my_key in zip(their_params, bert.state_dict(), strict=True):
+        weights_to_load[my_key] = their_params[loaded_key]
+    bert.load_state_dict(weights_to_load)
+    assert all(p.is_leaf for _name, p in bert.named_parameters())
+    return bert
+
+
+def load_tokenizer():
+    return transformers.AutoTokenizer.from_pretrained("bert-base-cased")

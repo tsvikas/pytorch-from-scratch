@@ -1,21 +1,10 @@
 import torch
-import transformers
 
-from pytorch_from_scratch.p04_BERT.my_bert import Bert, BertConfig
-
-
-def load_pretrained_weights(config: BertConfig) -> Bert:
-    bert = Bert(config)
-    hf_bert = transformers.BertForMaskedLM.from_pretrained("bert-base-cased")
-    their_params = hf_bert.state_dict().copy()
-    their_params.pop("cls.predictions.decoder.weight")
-    their_params.pop("cls.predictions.bias")
-    weights_to_load = {}
-    assert len(their_params) == len(bert.state_dict())
-    for loaded_key, my_key in zip(their_params, bert.state_dict()):
-        weights_to_load[my_key] = their_params[loaded_key]
-    bert.load_state_dict(weights_to_load)
-    return bert
+from pytorch_from_scratch.p04_BERT.my_bert import (
+    Bert,
+    load_pretrained_weights,
+    load_tokenizer,
+)
 
 
 def predict(model: Bert, tokenizer, text: str, k=15) -> list[list[str]]:
@@ -41,9 +30,8 @@ def test_bert_prediction(predict, model, tokenizer):
 
 
 def run_model():
-    my_bert = load_pretrained_weights(BertConfig())
-    assert all(p.is_leaf for _name, p in my_bert.named_parameters())
-    tokenizer = transformers.AutoTokenizer.from_pretrained("bert-base-cased")
+    my_bert = load_pretrained_weights()
+    tokenizer = load_tokenizer()
     test_bert_prediction(predict, my_bert, tokenizer)
     your_text = "The Answer to the Ultimate Question of Life, The Universe, and Everything is [MASK]."
     predictions = predict(my_bert, tokenizer, your_text)
