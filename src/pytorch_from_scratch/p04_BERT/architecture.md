@@ -39,15 +39,15 @@ graph TD
         SA([Input])
         -->|B, token, embedding| Q & K & V
         V
-        -->|B, head, token_k, embedding_v| WeightedSum
+        -->|B, head, token_k, v| WeightedSum
         Q
-        -->|B, head, token, embedding_qk| Dot
+        -->|B, head, token, qk| Dot
         K
-        -->|B, head, token, embedding_qk| Dot
+        -->|B, head, token, qk| Dot
         -->|B, head, token_q, token_k| ScaleDown
         --> Softmax
         --> WeightedSum
-        -->|B, head, token_q, embedding_v| O
+        -->|B, head, token_q, v| O
         -->|B, token_q, embedding| SAOutput([Output])
     end
 
