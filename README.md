@@ -14,17 +14,17 @@ Not all content is available now.
 The full content is:
 
 - Core PyTorch functionality:
-    - Autograd engine
-    - Neural Network layers
-    - Backpropagation
-    - Optimizers
-    - Data Parallelism (multi-GPU)
+  - Autograd engine
+  - Neural Network layers
+  - Backpropagation
+  - Optimizers
+  - Data Parallelism (multi-GPU)
 - Deep Learning Models:
-    - ResNet
-    - BERT
-    - GPT-2
-    - DDPM
-    - CLIP
+  - ResNet
+  - BERT
+  - GPT-2
+  - DDPM
+  - CLIP
 - Reinforcement Learning:
-    - DQN
-    - PPO
+  - DQN
+  - PPO
