@@ -78,8 +78,8 @@ def finetune_bert(model, config, train_data):
     return model, examples_seen
 
 
-def evaluate(model, test_data, step):
-    test_loader = DataLoader(test_data, batch_size=config.batch_size, pin_memory=True)
+def evaluate(model, test_data, step, batch_size):
+    test_loader = DataLoader(test_data, batch_size=batch_size, pin_memory=True)
     test_loss_fn = torch.nn.CrossEntropyLoss(reduction="sum")
     with torch.inference_mode():
         n_correct = 0
@@ -107,7 +107,7 @@ def main():
     train_data, test_data = get_reviews_datasets()
     model, config = prepare_bert()
     model, steps = finetune_bert(model, config, train_data)
-    evaluate(model, test_data, steps)
+    evaluate(model, test_data, steps, config.batch_size)
 
 
 if __name__ == "__main__":
