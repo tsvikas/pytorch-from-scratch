@@ -37,7 +37,7 @@ def test_layernorm_exact():
     x = torch.randn(2, 3, 4, 5)
     # Use large epsilon to make sure it fails if they forget it
     ln1 = LayerNorm((5,), eps=1e-2)
-    ln2 = torch.nn.LayerNorm((5,), eps=1e-2)  # type: ignore
+    ln2 = torch.nn.LayerNorm((5,), eps=1e-2)
     actual = ln1(x)
     expected = ln2(x)
     assert_close(actual, expected)

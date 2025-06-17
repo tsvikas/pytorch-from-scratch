@@ -102,7 +102,7 @@ def test_maxpool2d(my_maxpool2d, n_tests=20) -> None:
         torch_output = torch.max_pool2d(
             x,
             kernel_size,
-            stride=stride,  # type: ignore (None actually is allowed)
+            stride=stride,
             padding=padding,
         )
         assert_close(my_output, torch_output, atol=1e-4, rtol=1e-4)
