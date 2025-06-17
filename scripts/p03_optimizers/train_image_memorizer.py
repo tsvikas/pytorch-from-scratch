@@ -52,7 +52,7 @@ def preprocess_image(img: Image.Image) -> TensorDataset:
     """
     img_tensor = transforms.ToTensor()(img)[:3]
     _channels, height, width = img_tensor.shape
-    img_tensor = rearrange(img_tensor, "c h w -> (h w) c")  # type: torch.Tensor
+    img_tensor = rearrange(img_tensor, "c h w -> (h w) c")
     img_tensor *= 2
     img_tensor -= 1
     ys = (
